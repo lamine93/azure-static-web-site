@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'web-site/**'
+      - 'site/**'
       - '.github/workflows/deploy-static.yml'
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
               --account-name "$AZURE_STORAGE_ACCOUNT" \
               --account-key "$AZURE_STORAGE_KEY" \
               --destination '$web' \
-              --source web-site \
+              --source site \
               --overwrite
         env:
           AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}

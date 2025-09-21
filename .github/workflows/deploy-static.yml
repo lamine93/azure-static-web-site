@@ -13,17 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install Azure CLI
+      - name: Upload to $web with Azure CLI
         uses: azure/cli@v2
-
-      - name: Upload to $web
-        run: |
-          az storage blob upload-batch \
-            --account-name "$AZURE_STORAGE_ACCOUNT" \
-            --account-key "$AZURE_STORAGE_KEY" \
-            --destination '$web' \
-            --source web-site \
-            --overwrite
+        with:
+          inlineScript: |
+            az storage blob upload-batch \
+              --account-name "$AZURE_STORAGE_ACCOUNT" \
+              --account-key "$AZURE_STORAGE_KEY" \
+              --destination '$web' \
+              --source web-site \
+              --overwrite
         env:
           AZURE_STORAGE_ACCOUNT: ${{ secrets.AZURE_STORAGE_ACCOUNT }}
           AZURE_STORAGE_KEY:     ${{ secrets.AZURE_STORAGE_KEY }}
